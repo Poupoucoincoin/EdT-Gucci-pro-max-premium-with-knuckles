@@ -28,4 +28,14 @@
     <servlet-name>AddCours</servlet-name>
     <url-pattern>/AddCours</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ConsultCours</display-name>
+    <servlet-name>ConsultCours</servlet-name>
+    <servlet-class>consultcours.ConsultCours</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ConsultCours</servlet-name>
+    <url-pattern>/ConsultCours</url-pattern>
+  </servlet-mapping>
 </web-app>
