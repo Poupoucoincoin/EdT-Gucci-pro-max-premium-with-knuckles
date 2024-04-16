@@ -38,4 +38,14 @@
     <servlet-name>ConsultCours</servlet-name>
     <url-pattern>/ConsultCours</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>EDTManager</display-name>
+    <servlet-name>EDTManager</servlet-name>
+    <servlet-class>edtmanager.EDTManager</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>EDTManager</servlet-name>
+    <url-pattern>/EDTManager</url-pattern>
+  </servlet-mapping>
 </web-app>

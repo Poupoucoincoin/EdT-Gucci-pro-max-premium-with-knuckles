@@ -5,15 +5,20 @@
 <head>
 	<meta charset="UTF-8">
 	<title>New EDT</title>
-	<link rel="stylesheet" type="text/css" media="screen" href="./style/main.css"/>
+	<%@ include file="/MainStyle.jsp" %>
 </head>
 <body>
 
 	<%@ include file="/Header.jsp" %>
 	
+	
+	
 	<h2>Consulter l'EDT</h2>
 	
+	<div class="affichage">
 	
+	
+	</div>
 	
 
 </body>

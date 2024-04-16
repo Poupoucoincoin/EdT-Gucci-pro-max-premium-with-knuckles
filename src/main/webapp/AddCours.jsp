@@ -5,27 +5,54 @@
 <head>
 	<meta charset="UTF-8">
 	<title>New EDT</title>
-	<link rel="stylesheet" type="text/css" media="screen" href="./style/main.css"/>
+	<%@ include file="/MainStyle.jsp" %>
 </head>
 <body>
 
-	<%@ include file="/Header.jsp" %>
-	
-	<h2>Ajouter un cours</h2>
-	
-	<form action="/new_EDT/AddCours" method="post">
-		<div>
-			<label for="course_name">Intitulé du cours : </label>
-			<input type="text" name="course_name" id="course_name"/>
-		</div>
-		<div>
-			<label for="prof_name">Professeur : </label>
-			<input type="text" name="prof_name" id="prof_name"/>
+	<div class="page-wrapper">
+
+		<%@ include file="/Header.jsp" %>
+		
+		<div class="formulaire">
+		
+			<h2>Ajouter un cours</h2>
+			
+			<form action="/new_EDT/AddCours" method="post">
+				<input type="hidden" name="form-type" value="Add-Cours"/>
+				<div>
+					<label for="course_name">Intitulé du cours : </label>
+					<input type="text" name="course_name" id="course_name"/>
+				</div>
+				<div>
+					<label for="prof_name">Professeur : </label>
+					<input type="text" name="prof_name" id="prof_name"/>
+				</div>
+				<div>
+					<label for="date">Date : </label>
+					<input type="date" name="date" id="date"/>
+				</div>
+				<div>
+					<label for="heure_debut">heure de début : </label>
+					<input type="time" name="heure_debut" id="heure_debut"/>
+				</div>
+				<div>
+					<label for="heure_fin">heure de fin : </label>
+					<input type="time" name="heure_fin" id="heure_fin"/>
+				</div>
+				<div>
+					<label for="salle">Salle : </label>
+					<input type="text" name="salle" id="salle" value=""/>
+				</div>
+				
+				<input type="submit"/>
+			</form>
 		</div>
 		
-		<input type="submit"/>
-	</form>
+		<div class="affichage">
+		
+		</div>
 	
+	</div>
 
 </body>
 </html>
