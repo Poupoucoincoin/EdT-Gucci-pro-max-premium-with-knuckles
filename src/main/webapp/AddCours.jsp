@@ -9,11 +9,11 @@
 </head>
 <body>
 
-	<div class="page-wrapper">
+	<div>
 
 		<%@ include file="/Header.jsp" %>
 		
-		<div class="formulaire">
+		<div>
 		
 			<h2>Ajouter un cours</h2>
 			
@@ -44,7 +44,7 @@
 					<input type="text" name="salle" id="salle" value=""/>
 				</div>
 				
-				<input type="submit"/>
+				<input type="submit" value="Ajouter"/>
 			</form>
 		</div>
 		

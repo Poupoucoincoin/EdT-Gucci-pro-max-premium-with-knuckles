@@ -7,6 +7,10 @@ body{
 	margin: 0px;
 }
 
+div {
+	padding: 0.5em;
+}
+
 div.page-wrapper {
 	text-align: left;
 	display:grid;
@@ -25,14 +29,17 @@ header{
 }
 
 div.formulaire{
+	display: block;
 	grid-area: form;
 	background-color: #04AA6D;
 	text-align: center;
 	color: white;
+	height: 72vh;
+	
 }
 
 div.affichage{
-	
+	grid-area: affichage;
 }
 
 h1{
@@ -58,4 +65,54 @@ a:hover {
   color: black;
   border: 2px solid #04AA6D;
 }
+
+form.cours{
+	padding: 1em 1em 0.5em 1em;
+	border: 1px solid #000000;
+	display: block;
+}
+
+form.cours>h3{
+	margin:0;
+	padding: 0 0 0.5em 0;
+	display: block;
+	text-align: center;
+	white-space: pre-line;
+}
+
+form.cours>p {
+	line-height: 1.2em;
+	margin: 0;
+	padding: 0;
+	white-space: pre-line;
+}
+
+form.cours>p.main {
+	text-align: center;
+}
+
+form.cours>p.optionel{
+	text-align: left;
+}
+
+
+
+form.cours > div.submit{
+	padding: 0;
+	margin: 0.5em 0 0 0;
+	text-align: center;
+}
+
+form.exam{
+	background-color: red;
+}
+
+form.td{
+	background-color: green;
+}
+
+form.cm{
+	background-color: blue;
+}
+
 </style>
