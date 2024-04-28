@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -12,6 +14,7 @@ import org.jdom2.output.*;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
+
 
 public class CoursList {
 	private List<Cours> courses;
@@ -130,6 +133,22 @@ public class CoursList {
 			if(b_intitule && b_prof && b_date && b_salle) result.add(courant);
 		}
 		
+//		System.out.println("-----TRIAGE------");
+//		// Trie de result
+//		Collections.sort(result, new Comparator<Cours>() {
+//			public int compare(Cours c1, Cours c2) {
+//				Date[] d1 = c1.get_date_as_Date();
+//				Date[] d2 = c2.get_date_as_Date();
+//				
+//				System.out.println("-----------");
+//				System.out.print(d1[0]);
+//				System.out.print(" compare to ");
+//				System.out.println(d2[0]);
+//				System.out.println(d1[0].compareTo(d2[0]));
+//				return d1[0].compareTo(d2[0]);
+//			}
+//		});
+		
 		return result;
 	}
 	
@@ -157,14 +176,10 @@ public class CoursList {
 		Iterator<Cours> i = cours_du_jour.iterator();
 		while(i.hasNext()) {
 			Cours cours_courant = i.next();
-			String cc_date = cours_courant.get_date();
-			String cc_heure_d = cours_courant.get_heure_debut();
-			String cc_heure_f = cours_courant.get_heure_fin();
-			Date cc_horaire_debut = new Date(Integer.parseInt(cc_date.substring(0, 3)), Integer.parseInt(cc_date.substring(5, 7)), Integer.parseInt(cc_date.substring(8, 10)), Integer.parseInt(cc_heure_d.substring(0, 2)), Integer.parseInt(cc_heure_d.substring(3, 5)));
-			Date cc_horaire_fin = new Date(Integer.parseInt(cc_date.substring(0, 3)), Integer.parseInt(cc_date.substring(5, 7)), Integer.parseInt(cc_date.substring(8, 10)), Integer.parseInt(cc_heure_f.substring(0, 2)), Integer.parseInt(cc_heure_f.substring(3, 5)));
+			Date[] date_courante = cours_courant.get_date_as_Date();
 			
-			if(horaire_debut.after(cc_horaire_debut) && horaire_debut.before(cc_horaire_fin)) return false;
-			if(horaire_fin.after(cc_horaire_debut) && horaire_fin.before(cc_horaire_fin)) return false;
+			if(horaire_debut.after(date_courante[0]) && horaire_debut.before(date_courante[1])) return false;
+			if(horaire_fin.after(date_courante[0]) && horaire_fin.before(date_courante[1])) return false;
 			
 		}
 		
@@ -188,7 +203,36 @@ public class CoursList {
 		prochain_id++;
 	}
 	
+	public void modifier_cours(int id, String intitule, String prof, String date,String h_d, String h_f, String salle , String lieu, String type) {
+		Cours cours = find_cours(id);
+			
+		cours.set_intitule(intitule);
+		cours.set_professeur(prof);
+		cours.set_date(date);
+		cours.set_heure_debut(h_d);
+		cours.set_heure_fin(h_f);
+		cours.set_salle(salle);
+		cours.set_lieu(lieu);
+		cours.set_type(type);
+	}
 	
+	public void suppimer_cours(int id) {
+		courses.remove(find_cours(id));
+	}
+	
+//	public void trie_cours(List<Cours> liste){
+//
+//		Collections.sort(liste, new Comparator<Cours>() {
+//			public int compare(Cours c1, Cours c2) {
+//				Date[] d1 = c1.get_date_as_Date();
+//				Date[] d2 = c2.get_date_as_Date();
+//				
+//				return d1[0].compareTo(d2[0]);
+//			}
+//		});
+//		
+//
+//	}
 	
 
 }

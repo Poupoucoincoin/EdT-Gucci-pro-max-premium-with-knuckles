@@ -5,11 +5,59 @@
 <%
 	int a_id;	
 	
-	if ((String)request.getAttribute("a_id") == null){
+	// Test fait à l'acces de la page
+	if ((String)request.getAttribute("a_id") != null){
 		a_id = Integer.parseInt((String)request.getAttribute("a_id"));
 		%>
 		<c:set var="cours" value="${ cours_list.find_cours(a_id) }" scope="request" />
 		<%
+	}
+	
+	
+	// Modification du cours
+	int err, m_id;
+	String cours_name="", prof_name="", salle="", date="", heure_debut="", heure_fin="", lieu="", type="";
+	String alert = "", redirect = "";
+	
+	if((String)request.getAttribute("Add-Error") != null){
+		err = Integer.parseInt((String)request.getAttribute("Add-Error"));
+		
+		m_id = Integer.parseInt((String)request.getAttribute("m_id"));
+		cours_name = (String)request.getAttribute("m_intitule");
+		prof_name = (String)request.getAttribute("m_prof");
+		salle = (String)request.getAttribute("m_salle");
+		date = (String)request.getAttribute("m_date");
+		heure_debut = (String)request.getAttribute("m_heure_debut");
+		heure_fin = (String)request.getAttribute("m_heure_fin");
+		lieu = (String)request.getAttribute("m_lieu");
+		type = (String)request.getAttribute("m_type");
+		
+		if (err == 1){
+			
+			alert = "alert('Des informations sont manquantes');";
+			
+		} else if (err == 0){
+			
+			if (cours_list.est_ajoutable(date, heure_debut, heure_fin)){
+				cours_list.modifier_cours(m_id, cours_name, prof_name, date, heure_debut, heure_fin, salle, lieu, type);
+				
+				redirect = "<meta http-equiv=\"refresh\" content=\"0; url='/new_EDT/EDTManager?action=cours_modified'\" />";
+			} else{
+				alert = "alert('La plage horaire indiquer empiète sur un autre cours');";
+			}
+			
+		}
+	}
+	
+	// Suppression du cours
+	
+	int s_id;
+	
+	if ((String)request.getAttribute("s_id") != null){
+		s_id = Integer.parseInt((String)request.getAttribute("s_id"));
+		
+		cours_list.suppimer_cours(s_id);
+		redirect = "<meta http-equiv=\"refresh\" content=\"0; url='/new_EDT/EDTManager?action=cours_removed'\" />";
 	}
 
 %>
@@ -18,9 +66,10 @@
 <head>
 	<meta charset="UTF-8">
 	<title>New EDT</title>
+	<%= redirect %>
 	<%@ include file="/MainStyle.jsp" %>
 </head>
-<body>
+<body onload="<%= alert %>">
 	
 	<div>
 		<%@ include file="/Header.jsp" %>
@@ -62,15 +111,17 @@
 				</div>
 				<div>
 					<label>Type de cours :</label><br/>
-					<select name="type-cours" value="<c:out value="${ cours.get_type() }"/>">
-						<option value="cm">Cours magistral</option>
-						<option value="td">Travail dirigé</option>
-						<option value="exam">Examen</option>
+					<select name="type-cours">
+						<option value="cm" <c:if test="${ cours.get_type().equals('cm') }"> selected</c:if>>Cours magistral</option>
+						<option value="td" <c:if test="${ cours.get_type().equals('td') }"> selected</c:if>>Travail dirigé</option>
+						<option value="exam" <c:if test="${ cours.get_type().equals('exam') }"> selected</c:if> >Examen</option>
 					</select>		
 				</div>
 				
-				<input type="submit" name="submit_button" value="Modifier"/>
-				<input type="submit" name="submit_button" value="Supprimer"/>
+				<div>
+					<input type="submit" name="submit_button" value="Modifier"/>
+					<input type="submit" name="submit_button" value="Supprimer"/>
+				</div>
 			</form>
 		</div>
 	

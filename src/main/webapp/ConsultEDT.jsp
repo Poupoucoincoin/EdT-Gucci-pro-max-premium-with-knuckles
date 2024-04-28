@@ -28,17 +28,20 @@
 				<input type="hidden" name="form-type" value="<c:out value="${ cours.get_id()}" />"/>
 				
 				<h3><c:out value="${cours.get_intitule()}" /></h3>	
+				<h3>id: <c:out value="${cours.get_id()}" /></h3>
 				
 				<p class="main">Salle : <b> <c:out value="${cours.get_salle() }" /> </b>
-				Le <b> <c:out value="${cours.get_date() }" /> </b> de <b> <c:out value="${cours.get_heure_debut()}" /> </b> à <b> <c:out value="${cours.get_heure_fin()}" /> </b> 
+				Le <b> <c:out value="${cours.affiche_date() }" /> </b> de <b> <c:out value="${cours.get_heure_debut()}" /> </b> à <b> <c:out value="${cours.get_heure_fin()}" /> </b> 
 				</p>
 				<p class="optionel">Professeur : <b> <c:out value="${cours.get_professeur()}" /> </b>
 				Lieu : <b> <c:out value="${cours.get_lieu()}" /> </b>
 				</p>
 				
+				<!-- 
 				<div class="submit">
 					<input type="submit" value="Modifier" class="submit"/>
-				</div>
+				</div> 
+				-->
 			</form>
 		
 		</c:forEach>

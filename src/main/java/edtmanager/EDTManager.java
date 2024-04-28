@@ -25,11 +25,25 @@ public class EDTManager extends HttpServlet {
     
 	 /* @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)*/
 	 
-//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		// TODO Auto-generated method stub
-//		
-//		response.sendRedirect(current_page);
-//	}
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		RequestDispatcher dispat;
+		
+		
+		switch (request.getParameter("action")){
+		case "cours_modified":
+			request.setAttribute("alert", "cours_modified");
+			dispat = this.getServletContext().getRequestDispatcher("/index.jsp");
+			dispat.forward(request, response);
+			break;
+		case "cours_removed":
+			request.setAttribute("alert", "cours_removed");
+			dispat = this.getServletContext().getRequestDispatcher("/index.jsp");
+			dispat.forward(request, response);
+			break;
+		}
+		
+	}
 
 	
 	
@@ -53,7 +67,7 @@ public class EDTManager extends HttpServlet {
 			if(((String)request.getParameter("submit_button")).equals("Supprimer")) {
 				supprimer_cours(request, response, Integer.parseInt(request.getParameter("id")));
 			}else {
-				//TODO: l'appel de fonction de modification de cours
+				modifier_cours(request, response, Integer.parseInt(request.getParameter("id")), request.getParameter("cours_name"), request.getParameter("prof_name"), request.getParameter("date"), request.getParameter("heure_debut"), request.getParameter("heure_fin"), request.getParameter("salle"), request.getParameter("lieu"), request.getParameter("type-cours"));
 			}
 			break;
 		}
@@ -61,7 +75,6 @@ public class EDTManager extends HttpServlet {
 	
 	
 	// Fonctionnement de l'ajout de cours
-	
 	protected void ajoute_cours(HttpServletRequest request, HttpServletResponse response, String nom_cours, String nom_professeur, String date, String heure_debut, String heure_fin, String salle, String lieu, String type) throws ServletException, IOException {
 		
 		request.setAttribute("a_intitule", nom_cours);
@@ -114,19 +127,19 @@ public class EDTManager extends HttpServlet {
 	}
 	
 	protected void access_cours(HttpServletRequest request, HttpServletResponse response, int id) throws ServletException, IOException{
-		request.setAttribute("a_id", id);
+		request.setAttribute("a_id", Integer.toString(id));
 		RequestDispatcher dispat = this.getServletContext().getRequestDispatcher("/ChangeCours.jsp");
 		dispat.forward(request, response);
 	}
 	
 	protected void supprimer_cours(HttpServletRequest request, HttpServletResponse response, int id) throws ServletException, IOException{
-		request.setAttribute("s_id", id);
-		RequestDispatcher dispat = this.getServletContext().getRequestDispatcher("/index.jsp");
+		request.setAttribute("s_id", Integer.toString(id));
+		RequestDispatcher dispat = this.getServletContext().getRequestDispatcher("/ChangeCours.jsp");
 		dispat.forward(request, response);
 	}
 	
 	protected void modifier_cours(HttpServletRequest request, HttpServletResponse response, int id, String nom_cours, String nom_professeur, String date, String heure_debut, String heure_fin, String salle, String lieu, String type) throws ServletException, IOException{
-		request.setAttribute("m_id", id);
+		request.setAttribute("m_id", Integer.toString(id));
 		request.setAttribute("m_intitule", nom_cours);
 		request.setAttribute("m_prof", nom_professeur);
 		request.setAttribute("m_date", date);
