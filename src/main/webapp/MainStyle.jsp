@@ -12,6 +12,7 @@ div {
 }
 
 div.page-wrapper {
+	padding: 0.5em 0.5em 0 0.5em; 
 	text-align: left;
 	display:grid;
 	grid-template-columns: 1fr 4fr;
@@ -34,7 +35,7 @@ div.formulaire{
 	background-color: #04AA6D;
 	text-align: center;
 	color: white;
-	height: 72vh;
+	height: 100%;
 	
 }
 
@@ -68,7 +69,8 @@ a:hover {
 
 form.cours{
 	padding: 1em 1em 0.5em 1em;
-	border: 1px solid #000000;
+	margin: 0 0 0.5em 0;
+	border: 5px solid;
 	display: block;
 }
 
@@ -103,16 +105,19 @@ form.cours > div.submit{
 	text-align: center;
 }
 
-form.exam{
-	background-color: red;
+form#exam{
+	border-color: red;
 }
 
-form.td{
-	background-color: green;
+form#td{
+	border-color: green;
 }
 
-form.cm{
-	background-color: blue;
+
+
+form#cm{
+	border-color: blue;
 }
+
 
 </style>

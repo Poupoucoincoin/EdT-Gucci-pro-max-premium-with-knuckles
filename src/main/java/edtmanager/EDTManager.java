@@ -1,7 +1,7 @@
 package edtmanager;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -12,6 +12,7 @@ import java.io.IOException;
  */
 public class EDTManager extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private String current_page; 
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -21,13 +22,14 @@ public class EDTManager extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+    
+	 /* @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)*/
+	 
+//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//		// TODO Auto-generated method stub
+//		
+//		response.sendRedirect(current_page);
+//	}
 
 	
 	
@@ -39,10 +41,20 @@ public class EDTManager extends HttpServlet {
 
 		switch(request.getParameter("form-type")) {
 		case "Consult-Cours": 
-			cherche_cours(request.getParameter("course_name"), request.getParameter("prof_name"), request.getParameter("date"), request.getParameter("salle"));
+			cherche_cours(request, response, request.getParameter("cours_name"), request.getParameter("prof_name"), request.getParameter("date"), (request.getParameter("depuis_date")), request.getParameter("salle"));
 			break;
 		case "Add-Cours":
-			ajoute_cours(request.getParameter("course_name"), request.getParameter("prof_name"), request.getParameter("date"), request.getParameter("heure_debut"), request.getParameter("heure_fin"), request.getParameter("salle"));
+			ajoute_cours(request, response, request.getParameter("cours_name"), request.getParameter("prof_name"), request.getParameter("date"), request.getParameter("heure_debut"), request.getParameter("heure_fin"), request.getParameter("salle"), request.getParameter("lieu"), request.getParameter("type-cours"));
+			break;
+		case "Access-Cours":
+			access_cours(request, response, Integer.parseInt(request.getParameter("id")));
+			break;
+		case "Modif-Cours":
+			if(((String)request.getParameter("submit_button")).equals("Supprimer")) {
+				supprimer_cours(request, response, Integer.parseInt(request.getParameter("id")));
+			}else {
+				//TODO: l'appel de fonction de modification de cours
+			}
 			break;
 		}
 	}
@@ -50,21 +62,89 @@ public class EDTManager extends HttpServlet {
 	
 	// Fonctionnement de l'ajout de cours
 	
-	protected void ajoute_cours(String nom_cours, String nom_professeur, String date, String heure_debut, String heure_fin, String salle) {
+	protected void ajoute_cours(HttpServletRequest request, HttpServletResponse response, String nom_cours, String nom_professeur, String date, String heure_debut, String heure_fin, String salle, String lieu, String type) throws ServletException, IOException {
 		
-		return;
+		request.setAttribute("a_intitule", nom_cours);
+		request.setAttribute("a_prof", nom_professeur);
+		request.setAttribute("a_date", date);
+		request.setAttribute("a_heure_debut", heure_debut);
+		request.setAttribute("a_heure_fin", heure_fin);
+		request.setAttribute("a_salle", salle);
+		request.setAttribute("a_lieu", lieu);
+		request.setAttribute("a_type", type);
+		
+		if (_manque_informations(nom_cours, nom_professeur, date, heure_debut, heure_fin, salle, lieu, type)) {
+			request.setAttribute("Add-Error", "1"); // Erreur de d'information manquante
+		} else {
+			request.setAttribute("Add-Error", "0"); // Pas d'erreur et toutes les informations sont présente
+		}
+		
+		RequestDispatcher dispat = this.getServletContext().getRequestDispatcher("/AddCours.jsp");
+		dispat.forward(request, response);
+		
+
 	}
 
+	private boolean _manque_informations(String nom_cours, String nom_professeur, String date, String heure_debut, String heure_fin, String salle, String lieu, String type) {
+		if (nom_cours.equals("")) return true;
+		if (nom_professeur.equals("")) return true;
+		if (date.equals("")) return true;
+		if (heure_debut.equals("")) return true;
+		if (heure_fin.equals("")) return true;
+		if (salle.equals("")) return true;
+		if (lieu.equals("")) return true;
+		if (type.equals("")) return true;
+		
+		return false;
+	}
 	
 	
 	// Fonctionnement de la recherche de cours
 	
-	protected void cherche_cours(String nom_cour, String nom_professeur, String date, String salle) {
+	protected void cherche_cours(HttpServletRequest request, HttpServletResponse response, String nom_cours, String nom_professeur, String date, String depuis_la_date, String salle) throws ServletException, IOException {
 		// TODO Cherche les cours correspondant à la recherche
 		
-		return;
+		request.setAttribute("p_intitule", nom_cours);
+		request.setAttribute("p_prof", nom_professeur);
+		request.setAttribute("p_date", date);
+		request.setAttribute("p_salle", salle);
+		request.setAttribute("p_depuis_date", depuis_la_date);
+		RequestDispatcher dispat = this.getServletContext().getRequestDispatcher("/index.jsp");
+		dispat.forward(request, response);
 	}
 	
+	protected void access_cours(HttpServletRequest request, HttpServletResponse response, int id) throws ServletException, IOException{
+		request.setAttribute("a_id", id);
+		RequestDispatcher dispat = this.getServletContext().getRequestDispatcher("/ChangeCours.jsp");
+		dispat.forward(request, response);
+	}
+	
+	protected void supprimer_cours(HttpServletRequest request, HttpServletResponse response, int id) throws ServletException, IOException{
+		request.setAttribute("s_id", id);
+		RequestDispatcher dispat = this.getServletContext().getRequestDispatcher("/index.jsp");
+		dispat.forward(request, response);
+	}
+	
+	protected void modifier_cours(HttpServletRequest request, HttpServletResponse response, int id, String nom_cours, String nom_professeur, String date, String heure_debut, String heure_fin, String salle, String lieu, String type) throws ServletException, IOException{
+		request.setAttribute("m_id", id);
+		request.setAttribute("m_intitule", nom_cours);
+		request.setAttribute("m_prof", nom_professeur);
+		request.setAttribute("m_date", date);
+		request.setAttribute("m_heure_debut", heure_debut);
+		request.setAttribute("m_heure_fin", heure_fin);
+		request.setAttribute("m_salle", salle);
+		request.setAttribute("m_lieu", lieu);
+		request.setAttribute("m_type", type);
+		
+		if (_manque_informations(nom_cours, nom_professeur, date, heure_debut, heure_fin, salle, lieu, type)) {
+			request.setAttribute("Add-Error", "1"); // Erreur de d'information manquante
+		} else {
+			request.setAttribute("Add-Error", "0"); // Pas d'erreur et toutes les informations sont présente
+		}
+		
+		RequestDispatcher dispat = this.getServletContext().getRequestDispatcher("/ChangeCours.jsp");
+		dispat.forward(request, response);
+	}
 	
 	
 }
