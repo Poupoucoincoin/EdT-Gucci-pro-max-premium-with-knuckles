@@ -32,7 +32,6 @@ header{
 div.formulaire{
 	display: block;
 	grid-area: form;
-	background-color: #04AA6D;
 	text-align: center;
 	color: white;
 	height: 100%;
@@ -48,9 +47,7 @@ h1{
 }
 
 
-a {
-  background-color: #04AA6D; /* Green */
-  border: 2px solid #04AA6D;
+div.onglet>a {
   color: white;
   padding: 15px 25px;
   text-align: center;
@@ -61,12 +58,6 @@ a {
   transition-duration: 0.4s;
 }
 
-a:hover {
-  background-color: white;
-  color: black;
-  border: 2px solid #04AA6D;
-}
-
 form.cours{
 	padding: 1em 1em 0.5em 1em;
 	margin: 0 0 0.5em 0;
@@ -74,7 +65,15 @@ form.cours{
 	display: block;
 }
 
-form.cours>h3{
+div.cours{
+	font-size : 0.75em;
+	padding: 1em 0.2em 0.5em 0.2em;
+	margin: 0 0 0.5em 0;
+	border: 2px solid;
+	display: block;
+}
+
+h3{
 	margin:0;
 	padding: 0 0 0.5em 0;
 	display: block;
@@ -82,18 +81,18 @@ form.cours>h3{
 	white-space: pre-line;
 }
 
-form.cours>p {
+form.cours>p, div.cours>p {
 	line-height: 1.2em;
 	margin: 0;
 	padding: 0;
 	white-space: pre-line;
 }
 
-form.cours>p.main {
+form.cours>p.main, div.cours>p.main {
 	text-align: center;
 }
 
-form.cours>p.optionel{
+form.cours>p.optionel, div.cours>p.optionnel{
 	text-align: left;
 }
 
@@ -105,19 +104,61 @@ form.cours > div.submit{
 	text-align: center;
 }
 
-form#exam{
-	border-color: red;
+
+table.choix_semaine{
+	
+	width: 100%; 
 }
 
-form#td{
+table.choix_semaine p {
+	margin : 0;
+}
+
+table.choix_semaine a {
+  color: white;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 4px;
+  transition-duration: 0.4s;
+}
+
+
+table.calendrier{
+	border-collapse: collapse;
+	width: 100%;
+	
+}
+
+#exam {
+	background-color: red;
+	border-color: Crimson;
+}
+
+#td{
+	background-color: LawnGreen;
 	border-color: green;
 }
 
 
-
-form#cm{
-	border-color: blue;
+#cm{
+	background-color: Cyan;
+	border-color: DarkCyan;
 }
+
+#tp{
+	background-color: yellow;
+	border-color: Gold;
+}
+
+th, td {
+	vertical-align: text-top;
+	width: 16.5%;
+}
+
+
 
 
 </style>

@@ -1,37 +1,191 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <COURSES>
-	<PROCHAIN_ID>3</PROCHAIN_ID>
-	<COURS>
-		<ID>0</ID>
-		<INTITULE>Sodomie</INTITULE>
-		<PROFESSEUR>Le P</PROFESSEUR>
-		<DATE>2024-05-13</DATE>
-		<HEURE_DEBUT>10:15</HEURE_DEBUT>
-		<HEURE_FIN>12:15</HEURE_FIN>
-		<SALLE>S2-0-S6</SALLE>
-		<LIEU>Moufia</LIEU>
-		<TYPE>exam</TYPE>
-	</COURS>
-	<COURS>
-		<ID>1</ID>
-		<INTITULE>Sodomie</INTITULE>
-		<PROFESSEUR>Le P</PROFESSEUR>
-		<DATE>2024-05-15</DATE>
-		<HEURE_DEBUT>10:15</HEURE_DEBUT>
-		<HEURE_FIN>12:15</HEURE_FIN>
-		<SALLE>Amphi B</SALLE>
-		<LIEU>Moufia</LIEU>
-		<TYPE>cm</TYPE>
-	</COURS>
-	<COURS>
-		<ID>2</ID>
-		<INTITULE>Sodomie</INTITULE>
-		<PROFESSEUR>Le S</PROFESSEUR>
-		<DATE>2024-05-15</DATE>
-		<HEURE_DEBUT>10:15</HEURE_DEBUT>
-		<HEURE_FIN>12:15</HEURE_FIN>
-		<SALLE>S4d-1-S1</SALLE>
-		<LIEU>Moufia</LIEU>
-		<TYPE>td</TYPE>
-	</COURS>
+  <PROCHAIN_ID>17</PROCHAIN_ID>
+  <COURS>
+    <ID>10</ID>
+    <INTITULE>Logique, Vérification et Complexité</INTITULE>
+    <PROFESSEUR>MESNARD Frédéric</PROFESSEUR>
+    <DATE>2024-04-26</DATE>
+    <HEURE_DEBUT>08:00</HEURE_DEBUT>
+    <HEURE_FIN>10:00</HEURE_FIN>
+    <SALLE>Amphi B</SALLE>
+    <LIEU>Moufia</LIEU>
+    <TYPE>cm</TYPE>
+  </COURS>
+  <COURS>
+    <ID>0</ID>
+    <INTITULE>Programmation mobile 2</INTITULE>
+    <PROFESSEUR>PAYET Etienne</PROFESSEUR>
+    <DATE>2024-04-29</DATE>
+    <HEURE_DEBUT>08:00</HEURE_DEBUT>
+    <HEURE_FIN>10:00</HEURE_FIN>
+    <SALLE>S211 S212</SALLE>
+    <LIEU>PTU</LIEU>
+    <TYPE>tp</TYPE>
+  </COURS>
+  <COURS>
+    <ID>1</ID>
+    <INTITULE>Programmation web</INTITULE>
+    <PROFESSEUR>GROSSER David</PROFESSEUR>
+    <DATE>2024-04-29</DATE>
+    <HEURE_DEBUT>08:00</HEURE_DEBUT>
+    <HEURE_FIN>10:00</HEURE_FIN>
+    <SALLE>S214</SALLE>
+    <LIEU>PTU</LIEU>
+    <TYPE>tp</TYPE>
+  </COURS>
+  <COURS>
+    <ID>2</ID>
+    <INTITULE>Programmation web</INTITULE>
+    <PROFESSEUR>GROSSER David</PROFESSEUR>
+    <DATE>2024-04-29</DATE>
+    <HEURE_DEBUT>10:15</HEURE_DEBUT>
+    <HEURE_FIN>12:15</HEURE_FIN>
+    <SALLE>S211 S212</SALLE>
+    <LIEU>PTU</LIEU>
+    <TYPE>tp</TYPE>
+  </COURS>
+  <COURS>
+    <ID>4</ID>
+    <INTITULE>Informatique &amp; Didactique</INTITULE>
+    <PROFESSEUR>HOARAU Sébastien</PROFESSEUR>
+    <DATE>2024-04-30</DATE>
+    <HEURE_DEBUT>14:00</HEURE_DEBUT>
+    <HEURE_FIN>16:00</HEURE_FIN>
+    <SALLE>S22.1</SALLE>
+    <LIEU>PTU</LIEU>
+    <TYPE>td</TYPE>
+  </COURS>
+  <COURS>
+    <ID>5</ID>
+    <INTITULE>Administration système &amp; Déploiements réseaux</INTITULE>
+    <PROFESSEUR>SITALAPRESAD Ludovic</PROFESSEUR>
+    <DATE>2024-05-02</DATE>
+    <HEURE_DEBUT>08:00</HEURE_DEBUT>
+    <HEURE_FIN>12:15</HEURE_FIN>
+    <SALLE>S212</SALLE>
+    <LIEU>PTU</LIEU>
+    <TYPE>tp</TYPE>
+  </COURS>
+  <COURS>
+    <ID>7</ID>
+    <INTITULE>Informatique &amp; Didactique</INTITULE>
+    <PROFESSEUR>Hoarau Sébastien</PROFESSEUR>
+    <DATE>2024-05-02</DATE>
+    <HEURE_DEBUT>10:15</HEURE_DEBUT>
+    <HEURE_FIN>12:15</HEURE_FIN>
+    <SALLE>S22.4</SALLE>
+    <LIEU>PTU</LIEU>
+    <TYPE>td</TYPE>
+  </COURS>
+  <COURS>
+    <ID>6</ID>
+    <INTITULE>Administration système &amp; Déploiements réseaux</INTITULE>
+    <PROFESSEUR>SITALAPRESAD Ludovic</PROFESSEUR>
+    <DATE>2024-05-02</DATE>
+    <HEURE_DEBUT>14:00</HEURE_DEBUT>
+    <HEURE_FIN>18:15</HEURE_FIN>
+    <SALLE>S214</SALLE>
+    <LIEU>PTU</LIEU>
+    <TYPE>tp</TYPE>
+  </COURS>
+  <COURS>
+    <ID>3</ID>
+    <INTITULE>Logique, Vérification et Complexité</INTITULE>
+    <PROFESSEUR>MESNARD Frédéric</PROFESSEUR>
+    <DATE>2024-05-03</DATE>
+    <HEURE_DEBUT>08:00</HEURE_DEBUT>
+    <HEURE_FIN>10:00</HEURE_FIN>
+    <SALLE>Amphi C</SALLE>
+    <LIEU>Moufia</LIEU>
+    <TYPE>cm</TYPE>
+  </COURS>
+  <COURS>
+    <ID>8</ID>
+    <INTITULE>Logique, Vérification et Complexité</INTITULE>
+    <PROFESSEUR>MESNARD Frédéric</PROFESSEUR>
+    <DATE>2024-05-03</DATE>
+    <HEURE_DEBUT>08:00</HEURE_DEBUT>
+    <HEURE_FIN>10:00</HEURE_FIN>
+    <SALLE>Amphi C</SALLE>
+    <LIEU>Moufia</LIEU>
+    <TYPE>cm</TYPE>
+  </COURS>
+  <COURS>
+    <ID>9</ID>
+    <INTITULE>Logique, Vérification et Complexité</INTITULE>
+    <PROFESSEUR>MESNARD Frédéric</PROFESSEUR>
+    <DATE>2024-05-03</DATE>
+    <HEURE_DEBUT>10:15</HEURE_DEBUT>
+    <HEURE_FIN>12:15</HEURE_FIN>
+    <SALLE>S2-0-S6</SALLE>
+    <LIEU>Moufia</LIEU>
+    <TYPE>td</TYPE>
+  </COURS>
+  <COURS>
+    <ID>11</ID>
+    <INTITULE>Programmation web</INTITULE>
+    <PROFESSEUR>GROSSER David &amp; GIRARD Regis</PROFESSEUR>
+    <DATE>2024-05-13</DATE>
+    <HEURE_DEBUT>10:15</HEURE_DEBUT>
+    <HEURE_FIN>11:45</HEURE_FIN>
+    <SALLE>Amphi C</SALLE>
+    <LIEU>Moufia</LIEU>
+    <TYPE>exam</TYPE>
+  </COURS>
+  <COURS>
+    <ID>12</ID>
+    <INTITULE>Programmation mobile 2</INTITULE>
+    <PROFESSEUR>PAYET Etienne</PROFESSEUR>
+    <DATE>2024-05-14</DATE>
+    <HEURE_DEBUT>10:15</HEURE_DEBUT>
+    <HEURE_FIN>11:45</HEURE_FIN>
+    <SALLE>Amphi B</SALLE>
+    <LIEU>Moufia</LIEU>
+    <TYPE>exam</TYPE>
+  </COURS>
+  <COURS>
+    <ID>13</ID>
+    <INTITULE>Logique, Vérification et Complexité</INTITULE>
+    <PROFESSEUR>MESNARD Frédéric</PROFESSEUR>
+    <DATE>2024-05-15</DATE>
+    <HEURE_DEBUT>10:15</HEURE_DEBUT>
+    <HEURE_FIN>11:45</HEURE_FIN>
+    <SALLE>Amphi C</SALLE>
+    <LIEU>Moufia</LIEU>
+    <TYPE>exam</TYPE>
+  </COURS>
+  <COURS>
+    <ID>14</ID>
+    <INTITULE>Administration système &amp; Déploiements réseaux</INTITULE>
+    <PROFESSEUR>SITALAPRESAD Ludovic &amp; ANELLI Pascal</PROFESSEUR>
+    <DATE>2024-05-16</DATE>
+    <HEURE_DEBUT>10:15</HEURE_DEBUT>
+    <HEURE_FIN>11:45</HEURE_FIN>
+    <SALLE>Amphi A</SALLE>
+    <LIEU>Moufia</LIEU>
+    <TYPE>exam</TYPE>
+  </COURS>
+  <COURS>
+    <ID>15</ID>
+    <INTITULE>Administration système &amp; Déploiements réseaux</INTITULE>
+    <PROFESSEUR>SITALAPRESAD Ludovic</PROFESSEUR>
+    <DATE>2024-05-06</DATE>
+    <HEURE_DEBUT>08:00</HEURE_DEBUT>
+    <HEURE_FIN>10:00</HEURE_FIN>
+    <SALLE>Amphi C</SALLE>
+    <LIEU>Moufia</LIEU>
+    <TYPE>cm</TYPE>
+  </COURS>
+  <COURS>
+    <ID>16</ID>
+    <INTITULE>Administration système &amp; Déploiements réseaux</INTITULE>
+    <PROFESSEUR>SITALAPRESAD Ludovic</PROFESSEUR>
+    <DATE>2024-05-06</DATE>
+    <HEURE_DEBUT>10:15</HEURE_DEBUT>
+    <HEURE_FIN>12:15</HEURE_FIN>
+    <SALLE>S4B-0-INF1</SALLE>
+    <LIEU>Moufia</LIEU>
+    <TYPE>td</TYPE>
+  </COURS>
 </COURSES>

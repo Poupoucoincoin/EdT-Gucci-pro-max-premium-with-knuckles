@@ -5,7 +5,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 
 /**
  * Servlet implementation class EDTManager
@@ -21,13 +24,17 @@ public class EDTManager extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
+    
+    
     
 	 /* @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)*/
 	 
+	@SuppressWarnings("deprecation")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		RequestDispatcher dispat;
+		
+		Date date;
 		
 		
 		switch (request.getParameter("action")){
@@ -39,6 +46,20 @@ public class EDTManager extends HttpServlet {
 		case "cours_removed":
 			request.setAttribute("alert", "cours_removed");
 			dispat = this.getServletContext().getRequestDispatcher("/index.jsp");
+			dispat.forward(request, response);
+			break;
+		case "semaine_precedente":
+			date = new Date(Integer.parseInt(request.getParameter("annee")), Integer.parseInt(request.getParameter("mois")), Integer.parseInt(request.getParameter("jour")));
+			date.setDate(date.getDate()-7);
+			request.setAttribute("date_choisie", date);
+			dispat = this.getServletContext().getRequestDispatcher("/ConsultEDT.jsp");
+			dispat.forward(request, response);
+			break;
+		case "semaine_suivante":
+			date = new Date(Integer.parseInt(request.getParameter("annee")), Integer.parseInt(request.getParameter("mois")), Integer.parseInt(request.getParameter("jour")));
+			date.setDate(date.getDate()+7);
+			request.setAttribute("date_choisie", date);
+			dispat = this.getServletContext().getRequestDispatcher("/ConsultEDT.jsp");
 			dispat.forward(request, response);
 			break;
 		}
@@ -55,7 +76,7 @@ public class EDTManager extends HttpServlet {
 
 		switch(request.getParameter("form-type")) {
 		case "Consult-Cours": 
-			cherche_cours(request, response, request.getParameter("cours_name"), request.getParameter("prof_name"), request.getParameter("date"), (request.getParameter("depuis_date")), request.getParameter("salle"));
+			cherche_cours(request, response, request.getParameter("cours_name"), request.getParameter("prof_name"), request.getParameter("date"), (request.getParameter("jusqua_date")), request.getParameter("salle"));
 			break;
 		case "Add-Cours":
 			ajoute_cours(request, response, request.getParameter("cours_name"), request.getParameter("prof_name"), request.getParameter("date"), request.getParameter("heure_debut"), request.getParameter("heure_fin"), request.getParameter("salle"), request.getParameter("lieu"), request.getParameter("type-cours"));
@@ -114,14 +135,14 @@ public class EDTManager extends HttpServlet {
 	
 	// Fonctionnement de la recherche de cours
 	
-	protected void cherche_cours(HttpServletRequest request, HttpServletResponse response, String nom_cours, String nom_professeur, String date, String depuis_la_date, String salle) throws ServletException, IOException {
+	protected void cherche_cours(HttpServletRequest request, HttpServletResponse response, String nom_cours, String nom_professeur, String date, String jusqua_date, String salle) throws ServletException, IOException {
 		// TODO Cherche les cours correspondant à la recherche
 		
-		request.setAttribute("p_intitule", nom_cours);
-		request.setAttribute("p_prof", nom_professeur);
-		request.setAttribute("p_date", date);
-		request.setAttribute("p_salle", salle);
-		request.setAttribute("p_depuis_date", depuis_la_date);
+		request.setAttribute("r_intitule", nom_cours);
+		request.setAttribute("r_prof", nom_professeur);
+		request.setAttribute("r_date", date);
+		request.setAttribute("r_jusqua_date", jusqua_date);
+		request.setAttribute("r_salle", salle);
 		RequestDispatcher dispat = this.getServletContext().getRequestDispatcher("/index.jsp");
 		dispat.forward(request, response);
 	}

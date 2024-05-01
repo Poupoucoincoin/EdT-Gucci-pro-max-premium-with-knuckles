@@ -20,15 +20,18 @@ public class CoursList {
 	private List<Cours> courses;
 	private int prochain_id;
 	
-	public static String fichier = "/Users/lunar/eclipse-workspace/new_EDT/data/Cours.xml";
+	public String fichier = "C:/Users/lunar/eclipse-workspace/new_EDT/data/Cours.xml";
 	static Document document;
 	static Element racine;
 	
 	
+	
+	
 	public CoursList() {
 		courses = new ArrayList<Cours>();
-
+		
 		SAXBuilder sxb = new SAXBuilder();
+		
 		try {
 			document = sxb.build(new File(fichier));
 		} catch(Exception e) {}
@@ -65,6 +68,8 @@ public class CoursList {
 		Element root = new Element("COURSES");
 		Document doc = new Document(root);
 		
+		System.out.println("----UPDATE-----");
+		
 		Element p_id = new Element("PROCHAIN_ID").setText(Integer.toString(prochain_id));
 		root.addContent(p_id);
 		
@@ -74,24 +79,15 @@ public class CoursList {
 			Element cours = new Element("COURS");
 			root.addContent(cours);
 			
-			Element id = new Element("ID").setText(Integer.toString(courant.get_id()));
-			cours.addContent(id);
-			Element intitule = new Element("INTITULE").setText(courant.get_intitule());
-			cours.addContent(intitule);
-			Element prof = new Element("PROFESSEUR").setText(courant.get_professeur());
-			cours.addContent(prof);
-			Element date = new Element("DATE").setText(courant.get_date());
-			cours.addContent(date);
-			Element heure_d = new Element("HEURE_DEBUT").setText(courant.get_intitule());
-			cours.addContent(heure_d);
-			Element heure_f = new Element("HEURE_FIN").setText(courant.get_intitule());
-			cours.addContent(heure_f);
-			Element salle = new Element("SALLE").setText(courant.get_intitule());
-			cours.addContent(salle);
-			Element lieu = new Element("LIEU").setText(courant.get_intitule());
-			cours.addContent(lieu);
-			Element type = new Element("TYPE").setText(courant.get_intitule());
-			cours.addContent(type);
+			cours.addContent(new Element("ID").setText(Integer.toString(courant.get_id())));
+			cours.addContent(new Element("INTITULE").setText(courant.get_intitule()));
+			cours.addContent(new Element("PROFESSEUR").setText(courant.get_professeur()));
+			cours.addContent(new Element("DATE").setText(courant.get_date()));
+			cours.addContent(new Element("HEURE_DEBUT").setText(courant.get_heure_debut()));
+			cours.addContent(new Element("HEURE_FIN").setText(courant.get_heure_fin()));
+			cours.addContent(new Element("SALLE").setText(courant.get_salle()));
+			cours.addContent(new Element("LIEU").setText(courant.get_lieu()));
+			cours.addContent(new Element("TYPE").setText(courant.get_type()));
 		}
 		
 		//Enregistrement de la base xml
@@ -113,60 +109,53 @@ public class CoursList {
 		}
 		return null;
 	}
-	
 		
-	public List<Cours> find_cours(String intitule, String prof, String date, String depuis_la_date, String salle){
+	public List<Cours> find_cours(String intitule, String prof, String date, String jusqua_date, String salle){
 		List<Cours> result = new ArrayList<Cours>();
 		
-		if (intitule.equals("") && prof.equals("") && date.equals("") && salle.equals("")) return courses;
+//		System.out.println(intitule + " | " + prof + " | " + date + " | " + jusqua_date+ " | " +salle);
 		
-		Iterator<Cours> i = courses.iterator();
-		while(i.hasNext()) {
-			boolean b_intitule=false, b_prof=false, b_date=false, b_salle=false;
-			Cours courant = i.next();
-			
-			if(courant.get_intitule().toLowerCase().equals(intitule.toLowerCase()) || intitule.equals("")) b_intitule = true;
-			if(courant.get_professeur().toLowerCase().equals(prof.toLowerCase()) || prof.equals("")) b_prof = true;
-			if(date.equals("") || _compare_date(courant.get_date().toLowerCase(),date.toLowerCase(), depuis_la_date)) b_date = true;
-			if(courant.get_salle().toLowerCase().equals(salle.toLowerCase()) || salle.equals("")) b_salle = true;
-			
-			if(b_intitule && b_prof && b_date && b_salle) result.add(courant);
+		
+		if (intitule.equals("") && prof.equals("") && date.equals("") && jusqua_date.equals("") && salle.equals("")) {
+			result = courses;
+		}else {	
+			Iterator<Cours> i = courses.iterator();
+			while(i.hasNext()) {
+				boolean b_intitule=false, b_prof=false, b_date=false, b_salle=false;
+				Cours courant = i.next();
+				
+				if(courant.get_intitule().toLowerCase().equals(intitule.toLowerCase()) || intitule.equals("")) b_intitule = true;
+				if(courant.get_professeur().toLowerCase().equals(prof.toLowerCase()) || prof.equals("")) b_prof = true;
+				if(date.equals("") || _compare_date(courant.get_date().toLowerCase(),date.toLowerCase(), jusqua_date.toLowerCase())) b_date = true;
+				if(courant.get_salle().toLowerCase().equals(salle.toLowerCase()) || salle.equals("")) b_salle = true;
+				
+				if(b_intitule && b_prof && b_date && b_salle) result.add(courant);
+			}
 		}
 		
-//		System.out.println("-----TRIAGE------");
-//		// Trie de result
-//		Collections.sort(result, new Comparator<Cours>() {
-//			public int compare(Cours c1, Cours c2) {
-//				Date[] d1 = c1.get_date_as_Date();
-//				Date[] d2 = c2.get_date_as_Date();
-//				
-//				System.out.println("-----------");
-//				System.out.print(d1[0]);
-//				System.out.print(" compare to ");
-//				System.out.println(d2[0]);
-//				System.out.println(d1[0].compareTo(d2[0]));
-//				return d1[0].compareTo(d2[0]);
-//			}
-//		});
 		
+		trie_cours(result);
 		return result;
 	}
 	
+
+	
 	@SuppressWarnings("deprecation")
-	private boolean _compare_date(String d_xml, String d_formulaire, String depuis_la_date) {
-		Date date_xml = new Date(Integer.parseInt(d_xml.substring(0, 3)), Integer.parseInt(d_xml.substring(5, 7)), Integer.parseInt(d_xml.substring(8, 10)));
-		Date date_formulaire = new Date(Integer.parseInt(d_formulaire.substring(0, 3)), Integer.parseInt(d_formulaire.substring(5, 7)), Integer.parseInt(d_formulaire.substring(8, 10)));
+	private boolean _compare_date(String d_to_compar, String de_date, String a_date) {
+		Date date_a_comparer = new Date(Integer.parseInt(d_to_compar.substring(0, 3)), Integer.parseInt(d_to_compar.substring(5, 7)), Integer.parseInt(d_to_compar.substring(8, 10)));
+		Date date_de = new Date(Integer.parseInt(de_date.substring(0, 3)), Integer.parseInt(de_date.substring(5, 7)), Integer.parseInt(de_date.substring(8, 10)));
 		
-		if(depuis_la_date.equals("true")) {
-			return date_xml.after(date_formulaire) || date_formulaire.equals(date_xml);
+		if(a_date.equals("")) {
+			return date_a_comparer.after(date_de) || date_de.equals(date_a_comparer);
 		}else {
-			return date_formulaire.equals(date_xml);
+			Date date_a = new Date(Integer.parseInt(a_date.substring(0, 3)), Integer.parseInt(a_date.substring(5, 7)), Integer.parseInt(a_date.substring(8, 10)));
+			return date_de.equals(date_a_comparer) || (date_a_comparer.after(date_de) && date_a_comparer.before(date_a)) || date_a.equals(date_a_comparer);
 		}
 	}
 	
 	@SuppressWarnings("deprecation")
-	public boolean est_ajoutable(String date, String h_d, String h_f) {
-		List<Cours> cours_du_jour = this.find_cours("", "", date, "false", "");
+	public boolean est_ajoutable(String date, String h_d, String h_f, String prof) {
+		List<Cours> cours_du_jour = this.find_cours("", prof, date, date, "");
 		if (cours_du_jour.size() == 0) return true;
 		
 		Date horaire_debut = new Date(Integer.parseInt(date.substring(0, 3)), Integer.parseInt(date.substring(5, 7)), Integer.parseInt(date.substring(8, 10)), Integer.parseInt(h_d.substring(0, 2)), Integer.parseInt(h_d.substring(3, 5)));
@@ -180,6 +169,30 @@ public class CoursList {
 			
 			if(horaire_debut.after(date_courante[0]) && horaire_debut.before(date_courante[1])) return false;
 			if(horaire_fin.after(date_courante[0]) && horaire_fin.before(date_courante[1])) return false;
+			
+		}
+		
+		return true;
+	}
+	
+	@SuppressWarnings("deprecation")
+	public boolean est_modifiable(String date, String h_d, String h_f, String prof, int id) {
+		List<Cours> cours_du_jour = this.find_cours("", prof, date, date, "");
+		if (cours_du_jour.size() == 0) return true;
+		
+		Date horaire_debut = new Date(Integer.parseInt(date.substring(0, 3)), Integer.parseInt(date.substring(5, 7)), Integer.parseInt(date.substring(8, 10)), Integer.parseInt(h_d.substring(0, 2)), Integer.parseInt(h_d.substring(3, 5)));
+		Date horaire_fin = new Date(Integer.parseInt(date.substring(0, 3)), Integer.parseInt(date.substring(5, 7)), Integer.parseInt(date.substring(8, 10)), Integer.parseInt(h_f.substring(0, 2)), Integer.parseInt(h_f.substring(3, 5)));
+		
+		
+		Iterator<Cours> i = cours_du_jour.iterator();
+		while(i.hasNext()) {
+			Cours cours_courant = i.next();
+			Date[] date_courante = cours_courant.get_date_as_Date();
+			
+			if(cours_courant.get_id() != id) {
+				if(horaire_debut.after(date_courante[0]) && horaire_debut.before(date_courante[1])) return false;
+				if(horaire_fin.after(date_courante[0]) && horaire_fin.before(date_courante[1])) return false;
+			}
 			
 		}
 		
@@ -220,19 +233,30 @@ public class CoursList {
 		courses.remove(find_cours(id));
 	}
 	
-//	public void trie_cours(List<Cours> liste){
-//
-//		Collections.sort(liste, new Comparator<Cours>() {
-//			public int compare(Cours c1, Cours c2) {
-//				Date[] d1 = c1.get_date_as_Date();
-//				Date[] d2 = c2.get_date_as_Date();
-//				
-//				return d1[0].compareTo(d2[0]);
-//			}
-//		});
-//		
-//
-//	}
+	public void trie_cours(List<Cours> liste){
+		
+
+		Collections.sort(liste, new Comparator<Cours>() {
+			public int compare(Cours c1, Cours c2) {
+				Date[] d1 = c1.get_date_as_Date();
+				Date[] d2 = c2.get_date_as_Date();
+				
+				return d1[0].compareTo(d2[0]);
+			}
+		});
+		
+
+	}
+	
+	@SuppressWarnings("deprecation")
+	public List<Cours> give_week(Date date_du_lundi, int jour_de_la_semaine){
+		
+		Date date = new Date(date_du_lundi.getTime());
+		date.setDate(date.getDate() + (jour_de_la_semaine-1));
+		
+		String date_string = Integer.toString(date.getYear()+1900) + "-" + String.format("%02d", date.getMonth()+1) + "-" + String.format("%02d", date.getDate());
+		return find_cours("","",date_string, date_string,"");
+	}
 	
 
 }

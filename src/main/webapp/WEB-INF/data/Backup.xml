@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<COURSES>
+  <PROCHAIN_ID>3</PROCHAIN_ID>
+  <COURS>
+    <ID>0</ID>
+    <INTITULE>Sodomie</INTITULE>
+    <PROFESSEUR>Le P</PROFESSEUR>
+    <DATE>2024-05-13</DATE>
+    <HEURE_DEBUT>Sodomie</HEURE_DEBUT>
+    <HEURE_FIN>Sodomie</HEURE_FIN>
+    <SALLE>Sodomie</SALLE>
+    <LIEU>Sodomie</LIEU>
+    <TYPE>Sodomie</TYPE>
+  </COURS>
+  <COURS>
+    <ID>1</ID>
+    <INTITULE>Sodomie</INTITULE>
+    <PROFESSEUR>Le P</PROFESSEUR>
+    <DATE>2024-05-15</DATE>
+    <HEURE_DEBUT>Sodomie</HEURE_DEBUT>
+    <HEURE_FIN>Sodomie</HEURE_FIN>
+    <SALLE>Sodomie</SALLE>
+    <LIEU>Sodomie</LIEU>
+    <TYPE>Sodomie</TYPE>
+  </COURS>
+  <COURS>
+    <ID>2</ID>
+    <INTITULE>Sodomie</INTITULE>
+    <PROFESSEUR>Le S</PROFESSEUR>
+    <DATE>2024-05-15</DATE>
+    <HEURE_DEBUT>Sodomie</HEURE_DEBUT>
+    <HEURE_FIN>Sodomie</HEURE_FIN>
+    <SALLE>Sodomie</SALLE>
+    <LIEU>Sodomie</LIEU>
+    <TYPE>Sodomie</TYPE>
+  </COURS>
+</COURSES>

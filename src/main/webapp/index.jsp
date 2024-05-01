@@ -1,13 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.Random" %>
 <jsp:useBean id="cours_list" class="beans.CoursList" scope="application"/>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%
+<%	
+	
 	String alert_type = (String)request.getAttribute("alert"); 
 	String alert = "";
 
 	if ((String)request.getAttribute("alert") != null){
 		
+		cours_list.update_xml();
 		switch (alert_type){
 		case "cours_modified":
 			alert = "alert('Cours Modifié');";
@@ -17,6 +20,12 @@
 			break;
 		}
 	}
+	
+	
+	// sélection de la couleur aléatoire
+	String[] color_list = {"#04AA6D", "DarkGoldenRod", "DarkRed", "DarkCyan", "DarkViolet", "Fuchsia", "Maroon"};
+	String background_color = color_list[(int)(Math.floor(Math.random() *(color_list.length - 0) + 0))];
+	String style_background_color = "style=\"background-color: " + background_color + ";\"";
 
 %>
 <!DOCTYPE html>
@@ -25,14 +34,28 @@
 	<meta charset="UTF-8">
 	<title>New EDT</title>
 	<%@ include file="/MainStyle.jsp" %>
+	<style>
+	
+	div.onglet>a{
+		background-color: <%= background_color%>;
+  		border: 2px solid <%= background_color%>;
+	}
+	
+	div.onglet>a:hover {
+	  background-color: white;
+	  color: black;
+	  border: 2px solid <%= background_color%>;
+	}
+	</style>
+	
 </head>
 <body onload="<%= alert %>">
-	
+
 	<div class="page-wrapper">
 	
 		<%@ include file="/Header.jsp" %>
 		
-		<div class="formulaire">
+		<div class="formulaire" <%= style_background_color %>>
 		
 			<h2>Consulter un cours</h2>
 			
@@ -47,12 +70,10 @@
 					<input type="text" name="prof_name" id="prof_name" value=""/>
 				</div>
 				<div>
-					<label for="date">Date : </label><br/>
+					<label for="date">De : </label><br/>
 					<input type="date" name="date" id="date" value=""/><br/>
-					<input type="radio" name="depuis_date" id ="depuis_date" value="true" checked="checked"/>
-					<label for="depuis_date">Depuis</label><br/>
-					<input type="radio" name="depuis_date" id ="uniq_date" value="false"/>
-					<label for="uniq_date">Uniquement</label>
+					<label for="jusqua_date">Jusqu'à : </label><br/>
+					<input type="date" name="jusqua_date" id="jusqua_date" value=""/><br/>
 				</div>
 				<div>
 					<label for="salle">Salle : </label><br/>
@@ -66,23 +87,23 @@
 		<div class="affichage">
 		
 		<% 
-			String p_intitule = (String)request.getAttribute("p_intitule");
-			String p_prof = (String)request.getAttribute("p_prof");
-			String p_date = (String)request.getAttribute("p_date");
-			String p_salle = (String)request.getAttribute("p_salle");
-			String p_depuis_date = (String)request.getAttribute("p_depuis_date");
+			String r_intitule = (String)request.getAttribute("r_intitule");
+			String r_prof = (String)request.getAttribute("r_prof");
+			String r_date = (String)request.getAttribute("r_date");
+			String r_jusqua_date = (String)request.getAttribute("r_jusqua_date");
+			String r_salle = (String)request.getAttribute("r_salle");
 			
-			if(p_intitule == null) p_intitule="";
-			if(p_prof == null) p_prof="";
-			if(p_date == null) p_date="";
-			if(p_salle == null) p_salle="";
-			if(p_depuis_date == null) p_depuis_date = "true";
 			
+			if(r_intitule == null) r_intitule = "";
+			if(r_prof == null) r_prof = "";
+			if(r_date == null) r_date = "";
+			if(r_salle == null) r_salle = "";
+			if(r_jusqua_date == null) r_jusqua_date = "";
 		
 		%>
 		
 		
-		<c:forEach var="cours" items="${cours_list.find_cours(p_intitule, p_prof, p_date, p_depuis_date, p_salle) }">
+		<c:forEach var="cours" items="${cours_list.find_cours(r_intitule, r_prof, r_date, r_jusqua_date, r_salle) }">
 		
 			<form class="cours" id="<c:out value="${cours.get_type()}" />" action="/new_EDT/EDTManager" method="post" >
 				<input type="hidden" name="form-type" value="Access-Cours"/>

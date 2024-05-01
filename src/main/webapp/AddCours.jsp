@@ -4,20 +4,18 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% 
 	int err;
-	String cours_name="", prof_name="", salle="", date="", heure_debut="", heure_fin="", lieu="", type="";
-	String alert = "";
+	String cours_name = (String)request.getAttribute("a_intitule"), 
+			prof_name = (String)request.getAttribute("a_prof"), 
+			salle = (String)request.getAttribute("a_salle"), 
+			date = (String)request.getAttribute("a_date"), 
+			heure_debut = (String)request.getAttribute("a_heure_debut"), 
+			heure_fin = (String)request.getAttribute("a_heure_fin"), 
+			lieu = (String)request.getAttribute("a_lieu"), 
+			type = (String)request.getAttribute("a_type"),
+			alert = "";
 	
 	if((String)request.getAttribute("Add-Error") != null){
 		err = Integer.parseInt((String)request.getAttribute("Add-Error"));
-		
-		cours_name = (String)request.getAttribute("a_intitule");
-		prof_name = (String)request.getAttribute("a_prof");
-		salle = (String)request.getAttribute("a_salle");
-		date = (String)request.getAttribute("a_date");
-		heure_debut = (String)request.getAttribute("a_heure_debut");
-		heure_fin = (String)request.getAttribute("a_heure_fin");
-		lieu = (String)request.getAttribute("a_lieu");
-		type = (String)request.getAttribute("a_type");
 		
 		if (err == 1){
 			
@@ -25,9 +23,10 @@
 			
 		} else if (err == 0){
 			
-			if (cours_list.est_ajoutable(date, heure_debut, heure_fin)){
+			if (cours_list.est_ajoutable(date, heure_debut, heure_fin, prof_name)){
 				cours_list.ajouter_cours(cours_name, prof_name, date, heure_debut, heure_fin, salle, lieu, type);
 				alert = "alert('Cours ajouté');";
+				cours_list.update_xml();
 				cours_name = "";
 				prof_name = "";
 				salle = "";
@@ -42,6 +41,10 @@
 			
 		}
 	}
+	
+	// sélection de la couleur aléatoire
+	String[] color_list = {"#04AA6D", "DarkGoldenRod", "DarkRed", "DarkCyan", "DarkViolet", "Fuchsia", "Maroon"};
+	String background_color = color_list[(int)(Math.floor(Math.random() *(color_list.length - 0) + 0))];
 
 %>
 <!DOCTYPE html>
@@ -50,6 +53,19 @@
 	<meta charset="UTF-8">
 	<title>New EDT</title>
 	<%@ include file="/MainStyle.jsp" %>
+	<style>
+	
+	div.onglet>a{
+		background-color: <%= background_color%>;
+  		border: 2px solid <%= background_color%>;
+	}
+	
+	div.onglet>a:hover {
+	  background-color: white;
+	  color: black;
+	  border: 2px solid <%= background_color%>;
+	}
+	</style>
 </head>
 <body onload="<%= alert %>">
 
@@ -96,9 +112,10 @@
 					<label>Type de cours :</label><br/>
 					<select name="type-cours">
 						<option value=""></option>
-						<option value="cm">Cours magistral</option>
-						<option value="td">Travail dirigé</option>
-						<option value="exam">Examen</option>
+						<option value="cm" <c:if test="${ type.equals('cm') }"> <c:out value="selected"/></c:if>>Cours magistral</option>
+						<option value="td" <c:if test="${ type.equals('td') }"> <c:out value="selected"/></c:if>>Travail dirigé</option>
+						<option value="tp" <c:if test="${ type.equals('tp') }"> <c:out value="selected"/></c:if>>Travail pratique</option>
+						<option value="exam" <c:if test="${ type.equals('exam') }"> <c:out value="selected"/></c:if>>Examen</option>
 					</select>		
 				</div>
 				
